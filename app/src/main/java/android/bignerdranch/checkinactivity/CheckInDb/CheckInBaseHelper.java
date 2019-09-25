@@ -1,10 +1,10 @@
-package android.bignerdranch.checkinactivity.CheckInDbSchema;
+package android.bignerdranch.checkinactivity.CheckInDb;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import android.bignerdranch.checkinactivity.CheckInDbSchema.CheckInDbSchema.CheckInTable;
+import android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable;
 
 public class CheckInBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;

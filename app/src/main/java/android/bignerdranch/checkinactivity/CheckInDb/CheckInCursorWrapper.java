@@ -1,4 +1,4 @@
-package android.bignerdranch.checkinactivity.CheckInDbSchema;
+package android.bignerdranch.checkinactivity.CheckInDb;
 
 import android.bignerdranch.checkinactivity.CheckInDaily;
 import android.database.Cursor;

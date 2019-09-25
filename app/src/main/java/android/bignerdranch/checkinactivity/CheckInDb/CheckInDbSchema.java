@@ -1,4 +1,4 @@
-package android.bignerdranch.checkinactivity.CheckInDbSchema;
+package android.bignerdranch.checkinactivity.CheckInDb;
 
 public class CheckInDbSchema {
     public static final class CheckInTable{

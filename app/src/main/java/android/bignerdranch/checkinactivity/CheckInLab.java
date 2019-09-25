@@ -25,20 +25,20 @@ public class CheckInLab {
 
     private CheckInLab(Context context){
         mContext = context.getApplicationContext();
-        mDatabase = new android.bignerdranch.checkinactivity.CrimeDbSchema.CheckInBaseHelper(mContext)
+        mDatabase = new android.bignerdranch.checkinactivity.CheckInDb.CheckInBaseHelper(mContext)
                 .getWritableDatabase();
     }
 
     public void addCheckInActivity(CheckInDaily c){
         ContentValues values = getContentValues(c);
 
-        mDatabase.insert(android.bignerdranch.criminalintent.CrimeDbSchema.CheckInDbSchema.CrimeTable.NAME, null, values);
+        mDatabase.insert(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.NAME, null, values);
     }
 
     public List<CheckInDaily> getCheckInActivities() {
         List<android.bignerdranch.checkinactivity.CheckInDaily> dailies = new ArrayList<>();
 
-        android.bignerdranch.checkinactivity.CrimeDbSchema.CheckInCursorWrapper cursor = queryCrimes(null, null);
+        android.bignerdranch.checkinactivity.CheckInDb.CheckInCursorWrapper cursor = queryCrimes(null, null);
 
         try{
             cursor.moveToFirst();
@@ -53,8 +53,8 @@ public class CheckInLab {
     }
 
     public android.bignerdranch.checkinactivity.CheckInDaily getCheckInActivity(UUID id){
-        android.bignerdranch.checkinactivity.CheckInDbSchema.CheckInCursorWrapper cursor = queryCrimes(
-                android.bignerdranch.checkinactivity.CheckInDbSchema.CrimeTable.Cols.UUID + " = ?",
+        android.bignerdranch.checkinactivity.CheckInDb.CheckInCursorWrapper cursor = queryCrimes(
+                android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.UUID + " = ?",
                 new String[]{id.toString()}
         );
 
@@ -78,14 +78,14 @@ public class CheckInLab {
         String uuidString = daily.getId().toString();
         ContentValues values = getContentValues(daily);
 
-        mDatabase.update(android.bignerdranch.criminalintent.CrimeDbSchema.CheckInDbSchema.CrimeTable.NAME, values,
-                android.bignerdranch.criminalintent.CrimeDbSchema.CheckInDbSchema.CrimeTable.Cols.UUID + " = ?",
+        mDatabase.update(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.NAME, values,
+                android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.UUID + " = ?",
                 new String[]{uuidString});
     }
 
-    private android.bignerdranch.checkinactivity.CheckInDbSchema.CheckInCursorWrapper queryCrimes(String whereClause, String[] whereArgs){
+    private android.bignerdranch.checkinactivity.CheckInDb.CheckInCursorWrapper queryCrimes(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
-                android.bignerdranch.criminalintent.CrimeDbSchema.CheckInDbSchema.CrimeTable.NAME,
+                android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.NAME,
                 null, // columns - null select all columns
                 whereClause,
                 whereArgs,
@@ -93,16 +93,14 @@ public class CheckInLab {
                 null, //having
                 null //orderBy
         );
-        return new android.bignerdranch.checkinactivity.CheckInDbSchema.CheckInCursorWrapper(cursor);
+        return new android.bignerdranch.checkinactivity.CheckInDb.CheckInCursorWrapper(cursor);
     }
 
     private static ContentValues getContentValues(CheckInDaily daily){
         ContentValues values = new ContentValues();
-        values.put(android.bignerdranch.checkinactivity.CheckInDbSchema.CrimeTable.Cols.UUID, daily.getId().toString());
-        values.put(android.bignerdranch.checkinactivity.CheckInDbSchema.CrimeTable.Cols.TITLE, daily.getTitle());
-        values.put(android.bignerdranch.checkinactivity.CheckInDbSchema.CrimeTable.Cols.DATE, daily.getDate().getTime());
-        values.put(android.bignerdranch.checkinactivity.CheckInDbSchema.CrimeTable.Cols.SOLVED, daily.isSolved() ? 1 : 0);
-        values.put(android.bignerdranch.checkinactivity.CheckInDbSchema.CrimeTable.Cols.SUSPECT, daily.getSuspect());
+        values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.UUID, daily.getId().toString());
+        values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.TITLE, daily.getTitle());
+        values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.DATE, daily.getDate().getTime());
 
         return values;
     }

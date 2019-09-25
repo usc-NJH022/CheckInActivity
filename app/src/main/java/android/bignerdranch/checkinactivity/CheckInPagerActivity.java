@@ -35,7 +35,7 @@ public class CheckInPagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager)findViewById(R.id.crime_view_pager);
 
-        mDailies = CheckInLab.get(this).getCrimes();
+        mDailies = CheckInLab.get(this).getCheckInActivities();
         FragmentManager fragmentManager = getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
             @NonNull

@@ -37,7 +37,7 @@ import static android.widget.CompoundButton.*;
 
 public class CheckInFragment extends Fragment {
 
-    private static final String ARG_CRIME_ID = "crime_id";
+    private static final String ARG_CHECK_IN_ID = "Check_in_id";
     private static final String DIALOG_DATE = "DialogDate";
 
     private static final int REQUEST_DATE = 0;
@@ -56,7 +56,7 @@ public class CheckInFragment extends Fragment {
 
     public static CheckInFragment newInstance(UUID crimeId){
         Bundle args = new Bundle();
-        args.putSerializable(ARG_CRIME_ID, crimeId);
+        args.putSerializable(ARG_CHECK_IN_ID, crimeId);
 
         CheckInFragment fragment = new CheckInFragment();
         fragment.setArguments(args);
@@ -66,17 +66,17 @@ public class CheckInFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        UUID crimeId = (UUID)getArguments().getSerializable(ARG_CRIME_ID);
-        mCheckInDaily = CrimeLab.get(getActivity()).getCrime(crimeId);
-        mPhotoFile = CrimeLab.get(getActivity()).getPhotoFile(mCheckInDaily);
+        UUID checkInId = (UUID)getArguments().getSerializable(ARG_CHECK_IN_ID);
+        mCheckInDaily = CheckInLab.get(getActivity()).getCheckInActivity(checkInId);
+        mPhotoFile = CheckInLab.get(getActivity()).getPhotoFile(mCheckInDaily);
     }
 
     @Override
     public void onPause(){
         super.onPause();
 
-        CrimeLab.get(getActivity())
-                .updateCrime(mCheckInDaily);
+        CheckInLab.get(getActivity())
+                .updateCheckIn(mCheckInDaily);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class CheckInFragment extends Fragment {
                 i.setType("text/plain");
                 i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
                 i.putExtra(Intent.EXTRA_SUBJECT,
-                        getString(R.string.crime_report_subject));
+                        getString(R.string.check_in_report_subject));
             i = Intent.createChooser(i, getString(R.string.send_report));
             startActivity(i);
             }
@@ -167,7 +167,7 @@ public class CheckInFragment extends Fragment {
             @Override
             public void onClick(View v){
                 Uri uri = FileProvider.getUriForFile(getActivity(),
-                        "com.bignerdranch.android.criminalintent.fileprovider",
+                        "com.bignerdranch.android.checkinactivity.fileprovider",
                         mPhotoFile);
                 captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
 
@@ -227,7 +227,7 @@ public class CheckInFragment extends Fragment {
             }
         }else if(requestCode == REQUEST_PHOTO){
             Uri uri = FileProvider.getUriForFile(getActivity(),
-                    "com.bignerdranch.android.criminalintent.fileprovider",
+                    "com.bignerdranch.android.checkinactivity.fileprovider",
                     mPhotoFile);
 
             getActivity().revokeUriPermission(uri,
@@ -244,9 +244,9 @@ public class CheckInFragment extends Fragment {
     private String getCrimeReport(){
         String solvedString = null;
         if(mCheckInDaily.isSolved()){
-            solvedString = getString(R.string.crime_report_solved);
+            solvedString = getString(R.string.check_in_report_solved);
         }else{
-            solvedString = getString(R.string.crime_report_unsolved);
+            solvedString = getString(R.string.check_in_report_unsolved);
         }
 
         String dateFormat = "EEE, MMM dd";
@@ -254,12 +254,12 @@ public class CheckInFragment extends Fragment {
 
         String suspect = mCheckInDaily.getSuspect();
         if(suspect == null){
-            suspect = getString(R.string.crime_report_no_suspect);
+            suspect = getString(R.string.check_in_report_no_suspect);
         }else{
-            suspect = getString(R.string.crime_report_suspect, suspect);
+            suspect = getString(R.string.check_in_report_suspect, suspect);
         }
 
-        String report = getString(R.string.crime_report,
+        String report = getString(R.string.check_in_report,
                 mCheckInDaily.getTitle(), dateString, solvedString, suspect);
 
         return report;
