@@ -1,4 +1,4 @@
-package android.bignerdranch.criminalintent;
+package android.bignerdranch.checkinactivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -19,14 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CrimeListFragment extends Fragment {
+public class CheckInListFragment extends Fragment {
 
-    private RecyclerView mCrimeRecyclerView; // change to mActivityRecyclerView
-    private CrimeAdapter mAdapter; // change to ActivityAdapter
-    private boolean mSubtitleVisible; // Stay same
-    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle"; // stay sane
+    private RecyclerView mCheckInRecyclerView; // change to mActivityRecyclerView
+    private CheckInAdapter mAdapter;
+    private boolean mSubtitleVisible;
+    private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
-    //Stay the same
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -36,11 +34,11 @@ public class CrimeListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.fragment_crime_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_check_in_list, container, false);
 
-        mCrimeRecyclerView = (RecyclerView) view
-                .findViewById(R.id.crime_recycler_view);
-        mCrimeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mCheckInRecyclerView = (RecyclerView) view
+                .findViewById(R.id.check_in_recycler_view);
+        mCheckInRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         if(savedInstanceState != null){
             mSubtitleVisible = savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
@@ -66,7 +64,7 @@ public class CrimeListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list, menu);
+        inflater.inflate(R.menu.fragment_check_in_list, menu);
 
         MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
                 if(mSubtitleVisible){
@@ -80,10 +78,10 @@ public class CrimeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.new_crime:
-                Crime crime = new Crime();
-                CrimeLab.get(getActivity()).addCrime(crime);
-                Intent intent = CrimePagerActivity
-                        .newIntent(getActivity(), crime.getId());
+                CheckInDaily daily = new CheckInDaily();
+                android.bignerdranch.checkinactivity.CheckInLab.get(getActivity()).addCheckInActivity(daily);
+                Intent intent = CheckInPagerActivity
+                        .newIntent(getActivity(), daily.getId());
                 startActivity(intent);
                 return true;
             case R.id.show_subtitle:
@@ -98,9 +96,9 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateSubtitle(){
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        int crimeCount = crimeLab.getCrimes().size();
-        String subtitle = getString(R.string.subtitle_format, crimeCount);
+        CheckInLab checkInLab = CheckInLab.get(getActivity());
+        int activityCount = checkInLab.getCheckInActivities().size();
+        String subtitle = getString(R.string.subtitle_format, activityCount);
 
         if(!mSubtitleVisible){
             subtitle = null;
@@ -111,78 +109,75 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateUI(){
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        List<Crime> crimes = crimeLab.getCrimes();
+        android.bignerdranch.checkinactivity.CheckInLab dailyLab = android.bignerdranch.checkinactivity.CheckInLab.get(getActivity());
+        List<CheckInDaily> dailies = dailyLab.getCheckInActivities();
 
         if(mAdapter == null) {
-            mAdapter = new CrimeAdapter(crimes);
-            mCrimeRecyclerView.setAdapter(mAdapter);
+            mAdapter = new CheckInAdapter(dailies);
+            mCheckInRecyclerView.setAdapter(mAdapter);
         } else{
-            mAdapter.setCrimes(crimes);
+            mAdapter.setDailies(dailies);
             mAdapter.notifyDataSetChanged();
         }
 
         updateSubtitle();
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class CheckInHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
-        private ImageView mSolvedImageView;
-        private Crime mCrime;
+        private CheckInDaily mDaily;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent){
-            super(inflater.inflate(R.layout.list_item_crime, parent, false));
+        public CheckInHolder(LayoutInflater inflater, ViewGroup parent){
+            super(inflater.inflate(R.layout.list_item_check_in, parent, false));
             itemView.setOnClickListener(this);
 
             mTitleTextView = (TextView)itemView.findViewById(R.id.crime_title);
             mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
-            mSolvedImageView = (ImageView)itemView.findViewById(R.id.crime_solved);
         }
 
         @Override
         public void onClick(View view){
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CheckInPagerActivity.newIntent(getActivity(), mDaily.getId());
             startActivity(intent);
         }
 
-        public void bind(Crime crime){
-            mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
-            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+        public void bind(CheckInDaily daily){
+            mDaily = daily;
+            mTitleTextView.setText(mDaily.getTitle());
+            mDateTextView.setText(mDaily.getDate().toString());
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder>{
+    private class CheckInAdapter extends RecyclerView.Adapter<CheckInHolder>{
 
-        private List<Crime> mCrimes;
+        private List<CheckInDaily> mDailies;
 
-        public CrimeAdapter(List<Crime> crimes){
-            mCrimes = crimes;
+        public CheckInAdapter(List<CheckInDaily> dailies){
+            mDailies = dailies;
         }
 
         @Override
-        public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public CheckInHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
 
-            return new CrimeHolder(layoutInflater, parent);
+            return new CheckInHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(CrimeHolder holder, int position) {
-            Crime crime = mCrimes.get(position);
-            holder.bind(crime);
+        public void onBindViewHolder(CheckInHolder holder, int position) {
+            CheckInDaily daily = mDailies.get(position);
+            holder.bind(daily);
         }
 
         @Override
         public int getItemCount() {
-            return mCrimes.size();
+            return mDailies.size();
         }
 
-        public void setCrimes(List<Crime> crimes){
-            mCrimes = crimes;
+        public void setDailies(List<CheckInDaily> dailies){
+            mDailies = dailies;
         }
     }
 }

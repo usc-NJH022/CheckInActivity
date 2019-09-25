@@ -1,20 +1,20 @@
-package android.bignerdranch.criminalintent;
+package android.bignerdranch.checkinactivity;
 
 import java.util.Date;
 import java.util.UUID;
 
-public class Crime {
+public class CheckInDaily {
     private UUID mId;
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
     private String mSuspect;
 
-    public Crime() {
+    public CheckInDaily() {
         this(UUID.randomUUID());
     }
 
-    public Crime (UUID id){
+    public CheckInDaily(UUID id){
         mId = id;
         mDate = new Date();
     }

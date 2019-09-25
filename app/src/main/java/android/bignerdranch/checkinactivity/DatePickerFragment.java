@@ -1,4 +1,4 @@
-package android.bignerdranch.criminalintent;
+package android.bignerdranch.checkinactivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
 
 public class DatePickerFragment extends DialogFragment {
 
-    public static final String EXTRA_DATE = "com.nignerdranch.android.criminalintent.date";
+    public static final String EXTRA_DATE = "com.bignerdranch.android.checkinactivity.date";
 
     private static final String ARG_DATE = "date";
 

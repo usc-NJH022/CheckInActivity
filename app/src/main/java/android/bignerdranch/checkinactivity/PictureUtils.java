@@ -1,4 +1,4 @@
-package android.bignerdranch.criminalintent;
+package android.bignerdranch.checkinactivity;
 
 import android.app.Activity;
 import android.graphics.Bitmap;

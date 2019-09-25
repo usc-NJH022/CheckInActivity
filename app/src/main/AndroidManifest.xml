@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="android.bignerdranch.criminalintent">
+    package="android.bignerdranch.checkinactivity">
 
     <uses-feature android:name="android.hardware.camera"
                   android:required="false"/>
@@ -14,19 +14,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".CrimeListActivity">
+        <activity android:name=".CheckInListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".CrimePagerActivity"
-            android:parentActivityName=".CrimeListActivity">
+            android:name=".CheckInPagerActivity"
+            android:parentActivityName=".CheckInListActivity">
         </activity>
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.bignerdranch.android.criminalintent.fileprovider"
+            android:authorities="com.bignerdranch.android.checkinactivity.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
