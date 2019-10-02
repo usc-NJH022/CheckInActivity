@@ -77,7 +77,7 @@ public class CheckInListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case R.id.new_crime:
+            case R.id.new_check_in:
                 CheckInDaily daily = new CheckInDaily();
                 android.bignerdranch.checkinactivity.CheckInLab.get(getActivity()).addCheckInActivity(daily);
                 Intent intent = CheckInPagerActivity
@@ -133,8 +133,8 @@ public class CheckInListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_check_in, parent, false));
             itemView.setOnClickListener(this);
 
-            mTitleTextView = (TextView)itemView.findViewById(R.id.crime_title);
-            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+            mTitleTextView = (TextView)itemView.findViewById(R.id.check_in_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.check_in_date);
         }
 
         @Override

@@ -245,7 +245,7 @@ public class CheckInFragment extends Fragment {
         if(contact == null){
             contact = getString(R.string.check_in_report_no_contact);
         }else{
-            contact = getString(R.string.check_in_report_contact, contact);
+            //contact = getString(R.string.check_in_report_contact, contact);
         }
 
         String report = getString(R.string.check_in_report,

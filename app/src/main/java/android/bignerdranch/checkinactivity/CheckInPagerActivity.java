@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class CheckInPagerActivity extends AppCompatActivity {
-    private static final String EXTRA_CRIME_ID = "com.bignerdranch.android.checkinactivity.crime_id";
+    private static final String EXTRA_Activity_ID = "com.bignerdranch.android.checkinactivity.crime_id";
 
     private ViewPager mViewPager;
     private List<CheckInDaily> mDailies;
 
     public static Intent newIntent(Context packageContext, UUID crimeId){
         Intent intent = new Intent(packageContext, CheckInPagerActivity.class);
-        intent.putExtra(EXTRA_CRIME_ID, crimeId);
+        intent.putExtra(EXTRA_Activity_ID, crimeId);
         return intent;
     }
 
@@ -31,9 +31,9 @@ public class CheckInPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in_pager);
 
-        UUID crimeId = (UUID)getIntent().getSerializableExtra(EXTRA_CRIME_ID);
+        UUID crimeId = (UUID)getIntent().getSerializableExtra(EXTRA_Activity_ID);
 
-        mViewPager = (ViewPager)findViewById(R.id.crime_view_pager);
+        mViewPager = (ViewPager)findViewById(R.id.check_in_view_pager);
 
         mDailies = CheckInLab.get(this).getCheckInActivities();
         FragmentManager fragmentManager = getSupportFragmentManager();

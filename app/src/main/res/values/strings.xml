@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CriminalIntent</string>
+    <string name="app_name">CheckInActivity</string>
     <string name="check_in_title_hint">Enter a title for your activity.</string>
     <string name="check_in_title_label">Title</string>
     <string name="check_in_details_label">Details</string>
@@ -12,8 +12,9 @@
     <string name="check_in_report">%1$s!
     The activity was discovered on %2$s. %3$s, and %4$s
     </string>
-    <string name="check_in_report_contact">There are contacts</string>
-    <string name="check_in_report_no_contact">there is no contact.</string>
-    <string name="check_in_report_subject">CheckInActivity Check In Report</string>
+    <string name="check_in_report_contact">there are contacts you can share this activity with</string>
+    <string name="check_in_report_unfinished">The activity has not yet finished</string>
+    <string name="check_in_report_no_contact">there is no one to share this activity with.</string>
+    <string name="check_in_report_subject">CheckInActivity Activity Report</string>
     <string name="send_report">Send activity report via</string>
 </resources>
