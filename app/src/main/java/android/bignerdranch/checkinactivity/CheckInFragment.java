@@ -48,9 +48,7 @@ public class CheckInFragment extends Fragment {
     private File mPhotoFile;
     private EditText mTitleField;
     private Button mDateButton;
-    private CheckBox mSolvedCheckBox;
-    private Button mSuspectButton;
-    private Button mReportButton;
+    private Button mShareButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
 
@@ -102,7 +100,7 @@ public class CheckInFragment extends Fragment {
             }
         });
 
-        mDateButton = (Button)v.findViewById(R.id.crime_date);
+        mDateButton = (Button)v.findViewById(R.id.check_in_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -115,21 +113,12 @@ public class CheckInFragment extends Fragment {
             }
         });
 
-        mSolvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
-        mSolvedCheckBox.setChecked(mCheckInDaily.isSolved());
-        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked){
-                mCheckInDaily.setSolved(isChecked);
-            }
-        });
-
-        mReportButton = (Button)v.findViewById(R.id.crime_report);
-        mReportButton.setOnClickListener(new View.OnClickListener(){
+        mShareButton = (Button)v.findViewById(R.id.check_in_report);
+        mShareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
+                i.putExtra(Intent.EXTRA_TEXT, getShareReport());
                 i.putExtra(Intent.EXTRA_SUBJECT,
                         getString(R.string.check_in_report_subject));
             i = Intent.createChooser(i, getString(R.string.send_report));
@@ -139,24 +128,24 @@ public class CheckInFragment extends Fragment {
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
-        mSuspectButton = (Button)v.findViewById(R.id.crime_suspect);
-        mSuspectButton.setOnClickListener(new View.OnClickListener(){
+        //mShareButton = (Button)v.findViewById(R.id.crime_suspect);
+        mShareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivityForResult(pickContact, REQUEST_CONTACT);
             }
         });
 
-        if(mCheckInDaily.getSuspect() != null){
-            mSuspectButton.setText(mCheckInDaily.getSuspect());
+        if(mCheckInDaily.getContact() != null){
+            mShareButton.setText(mCheckInDaily.getContact());
         }
 
         PackageManager packageManager = getActivity().getPackageManager();
         if(packageManager.resolveActivity(pickContact,
                 packageManager.MATCH_DEFAULT_ONLY) == null){
-            mSuspectButton.setEnabled(false);
+            mShareButton.setEnabled(false);
         }
 
-        mPhotoButton = (ImageButton)v.findViewById(R.id.crime_camera);
+        mPhotoButton = (ImageButton)v.findViewById(R.id.check_in_camera);
         final Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
         boolean canTakePhoto = mPhotoFile != null &&
@@ -183,7 +172,7 @@ public class CheckInFragment extends Fragment {
             }
         });
 
-        mPhotoView = (ImageView)v.findViewById(R.id.crime_photo);
+        mPhotoView = (ImageView)v.findViewById(R.id.check_in_photo);
         updatePhotoView();
 
         return v;
@@ -220,8 +209,8 @@ public class CheckInFragment extends Fragment {
                 // Pull out the first column of the first row of data -
                 // that is your suspect's name
                 c.moveToFirst();
-                String suspect = c.getString(0);
-                mSuspectButton.setText(suspect);
+                String contact = c.getString(0);
+                mShareButton.setText(contact);
             }finally {
                 c.close();
             }
@@ -241,26 +230,26 @@ public class CheckInFragment extends Fragment {
         mDateButton.setText(mCheckInDaily.getDate().toString());
     }
 
-    private String getCrimeReport(){
-        String solvedString = null;
-        if(mCheckInDaily.isSolved()){
-            solvedString = getString(R.string.check_in_report_solved);
+    private String getShareReport(){
+        String shareString = null;
+        if(mCheckInDaily.isContacted()){
+            shareString = getString(R.string.check_in_report_contact);
         }else{
-            solvedString = getString(R.string.check_in_report_unsolved);
+            shareString = getString(R.string.check_in_report_no_contact);
         }
 
         String dateFormat = "EEE, MMM dd";
         String dateString = DateFormat.format(dateFormat, mCheckInDaily.getDate()).toString();
 
-        String suspect = mCheckInDaily.getSuspect();
-        if(suspect == null){
-            suspect = getString(R.string.check_in_report_no_suspect);
+        String contact = mCheckInDaily.getContact();
+        if(contact == null){
+            contact = getString(R.string.check_in_report_no_contact);
         }else{
-            suspect = getString(R.string.check_in_report_suspect, suspect);
+            contact = getString(R.string.check_in_report_contact, contact);
         }
 
         String report = getString(R.string.check_in_report,
-                mCheckInDaily.getTitle(), dateString, solvedString, suspect);
+                mCheckInDaily.getTitle(), dateString, shareString, contact);
 
         return report;
     }

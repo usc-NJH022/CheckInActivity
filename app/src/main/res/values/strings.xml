@@ -1,23 +1,19 @@
 <resources>
     <string name="app_name">CriminalIntent</string>
-    <string name="check_in_title_hint">Enter a title for the daily.</string>
+    <string name="check_in_title_hint">Enter a title for your activity.</string>
     <string name="check_in_title_label">Title</string>
     <string name="check_in_details_label">Details</string>
-    <string name="check_in_solved_label">Solved?</string>
-    <string name="date_picker_title">Date of daily:</string>
-    <string name="new_check_in">New Crime</string>
+    <string name="date_picker_title">Date of activity:</string>
+    <string name="new_check_in">New Activity</string>
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
-    <string name="subtitle_format">%1$d dailies</string>
-    <string name="check_in_suspect_text">Choose Suspect</string>
-    <string name="check_in_report_text">Send Crime Report</string>
+    <string name="subtitle_format">%1$d activities</string>
+    <string name="check_in_report_text">Send Activity Report</string>
     <string name="check_in_report">%1$s!
-    The daily was discovered on %2$s. %3$s, and %4$s
+    The activity was discovered on %2$s. %3$s, and %4$s
     </string>
-    <string name="check_in_report_solved">The case is solved</string>
-    <string name="check_in_report_unsolved">The case is not solved</string>
-    <string name="check_in_report_no_suspect">there is no suspect.</string>
-    <string name="check_in_report_suspect">the suspect is %s.</string>
-    <string name="check_in_report_subject">CriminalIntent Crime Report</string>
-    <string name="send_report">Send daily report via</string>
+    <string name="check_in_report_contact">There are contacts</string>
+    <string name="check_in_report_no_contact">there is no contact.</string>
+    <string name="check_in_report_subject">CheckInActivity Check In Report</string>
+    <string name="send_report">Send activity report via</string>
 </resources>

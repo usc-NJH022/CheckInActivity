@@ -7,8 +7,8 @@ public class CheckInDaily {
     private UUID mId;
     private String mTitle;
     private Date mDate;
-    private boolean mSolved;
-    private String mSuspect;
+    private boolean mIsContacted;
+    private String mContact;
 
     public CheckInDaily() {
         this(UUID.randomUUID());
@@ -39,20 +39,20 @@ public class CheckInDaily {
         mDate = date;
     }
 
-    public boolean isSolved(){
-        return mSolved;
+    public boolean isContacted(){
+        return mIsContacted;
     }
 
-    public void setSolved(boolean solved){
-        mSolved = solved;
+    public void setIsContacted(boolean contacted){
+        mIsContacted = contacted;
     }
 
-    public String getSuspect(){
-        return mSuspect;
+    public String getContact(){
+        return mContact;
     }
 
-    public void setSuspect(String suspect){
-        mSuspect = suspect;
+    public void setContact(String contact){
+        mContact = contact;
     }
 
     public String getPhotoFilename(){

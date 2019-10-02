@@ -8,7 +8,7 @@
     android:padding="8dp">
 
     <TextView
-        android:id="@+id/crime_title"
+        android:id="@+id/check_in_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -27,8 +27,8 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Crime Date"
+        android:text="Check In Date"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/crime_title" />
+        app:layout_constraintTop_toBottomOf="@id/check_in_title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
