@@ -6,6 +6,7 @@ import java.util.UUID;
 public class CheckInDaily {
     private UUID mId;
     private String mTitle;
+    private String mPlace;
     private Date mDate;
     private boolean mIsContacted;
     private String mContact;
@@ -30,6 +31,10 @@ public class CheckInDaily {
     public void setTitle(String title){
         mTitle = title;
     }
+
+    public String getPlace(){return mPlace;}
+
+    public void setPlace(String place){mPlace = place;}
 
     public Date getDate(){
         return mDate;

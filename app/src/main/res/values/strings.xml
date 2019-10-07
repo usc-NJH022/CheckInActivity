@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CheckInActivity</string>
     <string name="check_in_title_hint">Enter a title for your activity.</string>
+    <string name="activity_place_hint">Enter your location.</string>
     <string name="check_in_title_label">Title</string>
     <string name="check_in_details_label">Details</string>
     <string name="date_picker_title">Date of activity:</string>

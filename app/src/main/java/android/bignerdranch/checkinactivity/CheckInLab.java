@@ -1,5 +1,6 @@
 package android.bignerdranch.checkinactivity;
 
+import android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -101,6 +102,7 @@ public class CheckInLab {
         values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.UUID, daily.getId().toString());
         values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.TITLE, daily.getTitle());
         values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.DATE, daily.getDate().getTime());
+        values.put(CheckInDbSchema.CheckInTable.Cols.PLACE, daily.getPlace());
 
         return values;
     }

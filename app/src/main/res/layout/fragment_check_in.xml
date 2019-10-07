@@ -46,10 +46,16 @@
                 style="?android:listSeparatorTextViewStyle"/>
 
             <EditText
-                android:id="@+id/crime_title"
+                android:id="@+id/activity_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/check_in_title_hint"/>
+
+            <EditText
+                android:id="@+id/activity_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/activity_place_hint"/>
 
         </LinearLayout>
         

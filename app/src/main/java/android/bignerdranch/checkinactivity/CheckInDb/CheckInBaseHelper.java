@@ -20,7 +20,8 @@ public class CheckInBaseHelper extends SQLiteOpenHelper {
                 " _id integer primary key autoincrement, " +
                 CheckInTable.Cols.UUID + ", " +
                 CheckInTable.Cols.TITLE + ", " +
-                CheckInTable.Cols.DATE + ")"
+                CheckInTable.Cols.DATE + ", " +
+                CheckInTable.Cols.PLACE + ")"
         );
     }
 

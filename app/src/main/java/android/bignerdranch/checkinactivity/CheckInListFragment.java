@@ -127,14 +127,16 @@ public class CheckInListFragment extends Fragment {
 
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private TextView mPlaceTextView;
         private CheckInDaily mDaily;
 
         public CheckInHolder(LayoutInflater inflater, ViewGroup parent){
             super(inflater.inflate(R.layout.list_item_check_in, parent, false));
             itemView.setOnClickListener(this);
 
-            mTitleTextView = (TextView)itemView.findViewById(R.id.check_in_title);
-            mDateTextView = (TextView) itemView.findViewById(R.id.check_in_date);
+            mTitleTextView = (TextView)itemView.findViewById(R.id.activity_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.activity_date);
+            mPlaceTextView = (TextView)itemView.findViewById(R.id.activity_place);
         }
 
         @Override
@@ -147,6 +149,7 @@ public class CheckInListFragment extends Fragment {
             mDaily = daily;
             mTitleTextView.setText(mDaily.getTitle());
             mDateTextView.setText(mDaily.getDate().toString());
+            mPlaceTextView.setText(mDaily.getPlace());
         }
     }
 

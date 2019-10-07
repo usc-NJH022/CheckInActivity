@@ -15,10 +15,12 @@ public class CheckInCursorWrapper extends CursorWrapper {
     public CheckInDaily getCrime(){
         String uuidString = getString(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.UUID));
         String title = getString(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.TITLE));
+        String place = getString(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.PLACE));
         long date = getLong(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.DATE));
 
         CheckInDaily daily = new CheckInDaily(UUID.fromString(uuidString));
         daily.setTitle(title);
+        daily.setPlace(place);
         daily.setDate(new Date(date));
 
         return daily;

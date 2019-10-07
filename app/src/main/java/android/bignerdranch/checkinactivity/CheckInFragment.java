@@ -47,6 +47,7 @@ public class CheckInFragment extends Fragment {
     private CheckInDaily mCheckInDaily;
     private File mPhotoFile;
     private EditText mTitleField;
+    private EditText mPlaceField;
     private Button mDateButton;
     private Button mShareButton;
     private ImageButton mPhotoButton;
@@ -81,7 +82,7 @@ public class CheckInFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_check_in, container, false);
 
-        mTitleField = (EditText) v.findViewById(R.id.crime_title);
+        mTitleField = (EditText) v.findViewById(R.id.activity_title);
         mTitleField.setText(mCheckInDaily.getTitle());
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -92,6 +93,25 @@ public class CheckInFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 mCheckInDaily.setTitle(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        mPlaceField = (EditText)v.findViewById(R.id.activity_place);
+        mPlaceField.setText(mCheckInDaily.getPlace());
+        mPlaceField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mCheckInDaily.setPlace(s.toString());
             }
 
             @Override
