@@ -44,7 +44,7 @@ public class CheckInLab {
         try{
             cursor.moveToFirst();
             while(!cursor.isAfterLast()){
-                dailies.add(cursor.getCrime());
+                dailies.add(cursor.getActivities());
                 cursor.moveToNext();
             }
         }finally{
@@ -64,7 +64,7 @@ public class CheckInLab {
                 return null;
             }
             cursor.moveToFirst();
-            return cursor.getCrime();
+            return cursor.getActivities();
         }finally{
             cursor.close();
         }
@@ -103,6 +103,7 @@ public class CheckInLab {
         values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.TITLE, daily.getTitle());
         values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.DATE, daily.getDate().getTime());
         values.put(CheckInDbSchema.CheckInTable.Cols.PLACE, daily.getPlace());
+        values.put(CheckInDbSchema.CheckInTable.Cols.DETAILS, daily.getDetails());
 
         return values;
     }

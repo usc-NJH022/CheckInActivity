@@ -28,6 +28,10 @@ import android.text.format.DateFormat;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import java.io.File;
 import java.util.Date;
 import java.util.List;
@@ -48,10 +52,13 @@ public class CheckInFragment extends Fragment {
     private File mPhotoFile;
     private EditText mTitleField;
     private EditText mPlaceField;
+    private EditText mDetailsField;
     private Button mDateButton;
     private Button mShareButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
+
+    private GoogleApiClient mClient;
 
     public static CheckInFragment newInstance(UUID crimeId){
         Bundle args = new Bundle();
@@ -68,6 +75,17 @@ public class CheckInFragment extends Fragment {
         UUID checkInId = (UUID)getArguments().getSerializable(ARG_CHECK_IN_ID);
         mCheckInDaily = CheckInLab.get(getActivity()).getCheckInActivity(checkInId);
         mPhotoFile = CheckInLab.get(getActivity()).getPhotoFile(mCheckInDaily);
+
+        mClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        mClient.connect();
     }
 
     @Override
@@ -76,6 +94,12 @@ public class CheckInFragment extends Fragment {
 
         CheckInLab.get(getActivity())
                 .updateCheckIn(mCheckInDaily);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        mClient.disconnect();
     }
 
     @Override
@@ -120,6 +144,25 @@ public class CheckInFragment extends Fragment {
             }
         });
 
+        mDetailsField = (EditText)v.findViewById(R.id.activity_details);
+        mDetailsField.setText(mCheckInDaily.getDetails());
+        mDetailsField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mCheckInDaily.setDetails(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         mDateButton = (Button)v.findViewById(R.id.check_in_date);
         updateDate();
         mDateButton.setOnClickListener(new View.OnClickListener(){
@@ -133,7 +176,7 @@ public class CheckInFragment extends Fragment {
             }
         });
 
-        mShareButton = (Button)v.findViewById(R.id.check_in_report);
+        mShareButton = (Button)v.findViewById(R.id.activity_share);
         mShareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent i = new Intent(Intent.ACTION_SEND);

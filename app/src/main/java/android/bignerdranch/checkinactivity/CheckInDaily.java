@@ -1,5 +1,7 @@
 package android.bignerdranch.checkinactivity;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -7,6 +9,8 @@ public class CheckInDaily {
     private UUID mId;
     private String mTitle;
     private String mPlace;
+    private String mDetails;
+    private LatLng mLatLng;
     private Date mDate;
     private boolean mIsContacted;
     private String mContact;
@@ -18,6 +22,12 @@ public class CheckInDaily {
     public CheckInDaily(UUID id){
         mId = id;
         mDate = new Date();
+    }
+
+    public LatLng getLatLng(){return mLatLng;}
+
+    public void setLatLng(LatLng latLng) {
+        mLatLng = latLng;
     }
 
     public UUID getId(){
@@ -35,6 +45,12 @@ public class CheckInDaily {
     public String getPlace(){return mPlace;}
 
     public void setPlace(String place){mPlace = place;}
+
+    public String getDetails() {
+        return mDetails;
+    }
+
+    public void setDetails(String details){mDetails = details;}
 
     public Date getDate(){
         return mDate;

@@ -2,6 +2,7 @@
     <string name="app_name">CheckInActivity</string>
     <string name="check_in_title_hint">Enter a title for your activity.</string>
     <string name="activity_place_hint">Enter your location.</string>
+    <string name="details_hint">Enter the details of your activity</string>
     <string name="check_in_title_label">Title</string>
     <string name="check_in_details_label">Details</string>
     <string name="date_picker_title">Date of activity:</string>
@@ -9,7 +10,7 @@
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$d activities</string>
-    <string name="check_in_report_text">Send Activity Report</string>
+    <string name="check_in_report_text">Share</string>
     <string name="check_in_report">%1$s!
     The activity was discovered on %2$s. %3$s, and %4$s
     </string>
@@ -18,4 +19,5 @@
     <string name="check_in_report_no_contact">there is no one to share this activity with.</string>
     <string name="check_in_report_subject">CheckInActivity Activity Report</string>
     <string name="send_report">Send activity report via</string>
+    <string name="map">Map</string>
 </resources>
