@@ -1,25 +1,28 @@
 package android.bignerdranch.checkinactivity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -30,7 +33,9 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationRequest;
 
 import java.io.File;
 import java.util.Date;
@@ -56,6 +61,7 @@ public class CheckInFragment extends Fragment {
     private Button mDateButton;
     private Button mShareButton;
     private ImageButton mPhotoButton;
+    private Button mMapButton;
     private ImageView mPhotoView;
 
     private GoogleApiClient mClient;
@@ -78,6 +84,33 @@ public class CheckInFragment extends Fragment {
 
         mClient = new GoogleApiClient.Builder(getActivity())
                 .addApi(LocationServices.API)
+                .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                    @Override
+                    public void onConnected(@Nullable Bundle bundle) {
+                        LocationRequest request = LocationRequest.create();
+                        request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                        request.setNumUpdates(1);
+                        request.setInterval(0);
+
+                        if(ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                                != PackageManager.PERMISSION_GRANTED){
+                            return;
+                        }
+                        LocationServices.FusedLocationApi.requestLocationUpdates(mClient, request, new LocationListener() {
+                            @Override
+                            public void onLocationChanged(Location location) {
+                                mCheckInDaily.setLatitude(location.getLatitude());
+                                mCheckInDaily.setLongitude(location.getLongitude());
+                                Log.i("LOCATION", "Got a Fix: " + location);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onConnectionSuspended(int i) {
+
+                    }
+                })
                 .build();
     }
 
@@ -191,7 +224,6 @@ public class CheckInFragment extends Fragment {
 
         final Intent pickContact = new Intent(Intent.ACTION_PICK,
                 ContactsContract.Contacts.CONTENT_URI);
-        //mShareButton = (Button)v.findViewById(R.id.crime_suspect);
         mShareButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startActivityForResult(pickContact, REQUEST_CONTACT);
@@ -237,6 +269,15 @@ public class CheckInFragment extends Fragment {
 
         mPhotoView = (ImageView)v.findViewById(R.id.check_in_photo);
         updatePhotoView();
+
+        mMapButton = (Button)v.findViewById(R.id.activity_map);
+        mMapButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                startActivity(i);
+            }
+        });
 
         return v;
     }

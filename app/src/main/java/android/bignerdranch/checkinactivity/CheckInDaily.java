@@ -10,7 +10,8 @@ public class CheckInDaily {
     private String mTitle;
     private String mPlace;
     private String mDetails;
-    private LatLng mLatLng;
+    private double mLatitude;
+    private double mLongitude;
     private Date mDate;
     private boolean mIsContacted;
     private String mContact;
@@ -24,10 +25,20 @@ public class CheckInDaily {
         mDate = new Date();
     }
 
-    public LatLng getLatLng(){return mLatLng;}
+    public double getLatitude() {
+        return mLatitude;
+    }
 
-    public void setLatLng(LatLng latLng) {
-        mLatLng = latLng;
+    public void setLatitude(double latitude) {
+        mLatitude = latitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
+    }
+
+    public void setLongitude(double longitude) {
+        mLongitude = longitude;
     }
 
     public UUID getId(){
