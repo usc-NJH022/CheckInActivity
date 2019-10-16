@@ -1,6 +1,7 @@
 package android.bignerdranch.checkinactivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -8,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +24,7 @@ public class CheckInListFragment extends Fragment {
     private CheckInAdapter mAdapter;
     private boolean mSubtitleVisible;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
+    private static final String HELP_URI = "https://www.wikihow.com/Check-In-on-Facebook";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -88,6 +89,10 @@ public class CheckInListFragment extends Fragment {
                 mSubtitleVisible = !mSubtitleVisible;
                 getActivity().invalidateOptionsMenu();
                 updateSubtitle();
+                return true;
+            case R.id.help:
+                Intent intentHelp = WebPageActivity.newIntent(getActivity(), Uri.parse(Uri.decode(HELP_URI)));
+                startActivity(intentHelp);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
