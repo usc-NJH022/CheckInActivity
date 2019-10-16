@@ -10,6 +10,8 @@ public class CheckInDbSchema {
             public static final String DATE = "date";
             public static final String PLACE = "place";
             public static final String DETAILS = "details";
+            public static final String LATITUDE = "latitude";
+            public static final String LONGITUDE = "longitude";
         }
     }
 }

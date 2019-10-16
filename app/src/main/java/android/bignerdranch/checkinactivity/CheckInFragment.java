@@ -30,12 +30,14 @@ import androidx.fragment.app.FragmentManager;
 import android.text.format.DateFormat;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApi;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.util.Date;
@@ -58,6 +60,7 @@ public class CheckInFragment extends Fragment {
     private EditText mTitleField;
     private EditText mPlaceField;
     private EditText mDetailsField;
+    private TextView mLatLongView;
     private Button mDateButton;
     private Button mShareButton;
     private ImageButton mPhotoButton;
@@ -195,6 +198,10 @@ public class CheckInFragment extends Fragment {
 
             }
         });
+
+        LatLng myPoint = new LatLng(mCheckInDaily.getLatitude(), mCheckInDaily.getLongitude());
+        mLatLongView = (TextView)v.findViewById(R.id.latlong_view);
+        mLatLongView.setText(myPoint.toString());
 
         mDateButton = (Button)v.findViewById(R.id.check_in_date);
         updateDate();

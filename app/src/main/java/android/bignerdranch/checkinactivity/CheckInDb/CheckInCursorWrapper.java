@@ -17,12 +17,16 @@ public class CheckInCursorWrapper extends CursorWrapper {
         String title = getString(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.TITLE));
         String place = getString(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.PLACE));
         String details = getString(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.DETAILS));
+        double longitude = getDouble(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.LATITUDE));
+        double latitude = getDouble(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.LONGITUDE));
         long date = getLong(getColumnIndex(CheckInDbSchema.CheckInTable.Cols.DATE));
 
         CheckInDaily daily = new CheckInDaily(UUID.fromString(uuidString));
         daily.setTitle(title);
         daily.setPlace(place);
         daily.setDetails(details);
+        daily.setLongitude(longitude);
+        daily.setLatitude(latitude);
         daily.setDate(new Date(date));
 
         return daily;

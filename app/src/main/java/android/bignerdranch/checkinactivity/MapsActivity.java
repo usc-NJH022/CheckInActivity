@@ -2,6 +2,7 @@ package android.bignerdranch.checkinactivity;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.location.Location;
 import android.os.Bundle;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    private CheckInDaily mCheckInDaily;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void updateUI(){
-        LatLng myPoint = new LatLng(latitude, longitude);
+
+        LatLng myPoint = new LatLng(mCheckInDaily.getLatitude(), mCheckInDaily.getLongitude());
 
         MarkerOptions myMarker = new MarkerOptions().position(myPoint).title("Receipt location");
 

@@ -104,6 +104,8 @@ public class CheckInLab {
         values.put(android.bignerdranch.checkinactivity.CheckInDb.CheckInDbSchema.CheckInTable.Cols.DATE, daily.getDate().getTime());
         values.put(CheckInDbSchema.CheckInTable.Cols.PLACE, daily.getPlace());
         values.put(CheckInDbSchema.CheckInTable.Cols.DETAILS, daily.getDetails());
+        values.put(CheckInDbSchema.CheckInTable.Cols.LATITUDE, daily.getLatitude());
+        values.put(CheckInDbSchema.CheckInTable.Cols.LONGITUDE, daily.getLongitude());
 
         return values;
     }
